@@ -1,13 +1,36 @@
 import React from "react";
-
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import $ from "jquery";
 import "./windows.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import IconButton from "@material-ui/core/IconButton";
+import VolumeDown from "@material-ui/icons/VolumeDown";
+import VolumeUp from "@material-ui/icons/VolumeUp";
+import PauseIcon from "@material-ui/icons/Pause";
 
 export default function Windows() {
+  const setVolume = (ID) => {
+    console.log(Number("0." + document.getElementById(ID + "slider").value));
+    document.getElementById(ID + "audio").volume = Number(
+      "0." + document.getElementById(ID + "slider").value
+    );
+  };
+
+  const play = (ID) => {
+    document.getElementById(ID + "audio").play();
+    document.getElementById(ID + "play-button").style.display = "none";
+    document.getElementById(ID + "pause-button").style.display = "block";
+    document.getElementById(ID + "pause-button").style.opacity = 1;
+  };
+
+  const pause = (ID) => {
+    document.getElementById(ID + "audio").pause();
+    document.getElementById(ID + "play-button").style.display = "block";
+    document.getElementById(ID + "pause-button").style.display = "none";
+  };
+
   Aos.init({
     duration: 500,
   });
@@ -70,17 +93,59 @@ export default function Windows() {
       <React.Fragment>
         <Grid item sm={12} xs={12} md={6} lg={6}>
           <Paper id={props.id} className={"paper"}>
-            <div>
-              <h1>{props.text}</h1>
+            <h3>{props.text}</h3>
+            <div className="player">
+              <IconButton
+                onClick={() => {
+                  play(props.musicId);
+                }}
+                id={props.id + "play-button"}
+                className="player-buttons"
+              >
+                <PlayArrowIcon className="player-buttons" />
+              </IconButton>
+
+              <IconButton
+                className="pause-button"
+                onClick={() => {
+                  pause(props.musicId);
+                }}
+                id={props.id + "pause-button"}
+              >
+                <PauseIcon className="player-buttons" />
+              </IconButton>
+
+              <div className="volume">
+                <VolumeDown className="player-buttons" />
+
+                <input
+                  min="10"
+                  max="99"
+                  type="range"
+                  defaultValue="99"
+                  id={props.id + "slider"}
+                  className="slider"
+                  onChange={() => {
+                    setVolume(props.id);
+                  }}
+                  // onMouseUp={() => {
+                  //   console.log(value);
+                  // }}
+                  aria-labelledby="continuous-slider"
+                />
+
+                <VolumeUp className="player-buttons" />
+              </div>
+
+              <audio
+                className="audio"
+                id={props.id + "audio"}
+                access-key={props.accesskey}
+                src={props.src}
+                aria-controls="text"
+                loop
+              ></audio>
             </div>
-            <audio
-              className="audio"
-              id={props.id}
-              access-key={props.accesskey}
-              src={props.src}
-              aria-controls="text"
-              loop
-            ></audio>
           </Paper>
         </Grid>
       </React.Fragment>
@@ -94,11 +159,12 @@ export default function Windows() {
           {data.map((d) => {
             return (
               <FormRow
+                key={d.id}
                 text={d.text}
                 id={d.id}
-                accesskey={d.accesskey}
+                musicId={d.id}
+                access-key={d.accesskey}
                 src={d.src}
-                key={d.id}
                 autoPlay
               ></FormRow>
             );
@@ -108,31 +174,31 @@ export default function Windows() {
     </div>
   );
 }
-$(document).ready(function () {
-  var playing = false;
-  $(".paper").click(function () {
-    var selected = $(this).attr("id");
-    var audio = document.querySelector("audio" + "#" + selected);
-    if (audio.duration > 0 && !audio.paused) {
-      audio.pause();
-      $(this).hover(
-        function () {
-          $(this).css("filter", "grayscale(0)");
-        },
-        function () {
-          $(this).css("filter", "contrast(0.7)");
-        }
-      );
-    } else {
-      audio.play();
-      $(this).hover(
-        function () {
-          $(this).css("filter", "contrast(1)");
-        },
-        function () {
-          $(this).css("filter", "contrast(1)");
-        }
-      );
-    }
-  });
-});
+// $(document).ready(function () {
+//   var playing = false;
+//   $(".paper").click(function () {
+//     var selected = $(this).attr("id");
+//     var audio = document.querySelector("audio" + "#" + selected);
+//     if (audio.duration > 0 && !audio.paused) {
+//       audio.pause();
+//       $(this).hover(
+//         function () {
+//           $(this).css("filter", "grayscale(0)");
+//         },
+//         function () {
+//           $(this).css("filter", "contrast(0.7)");
+//         }
+//       );
+//     } else {
+//       audio.play();
+//       $(this).hover(
+//         function () {
+//           $(this).css("filter", "contrast(1)");
+//         },
+//         function () {
+//           $(this).css("filter", "contrast(1)");
+//         }
+//       );
+//     }
+//   });
+// });
