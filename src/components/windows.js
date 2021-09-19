@@ -12,7 +12,6 @@ import PauseIcon from "@material-ui/icons/Pause";
 
 export default function Windows() {
   const setVolume = (ID) => {
-    console.log(Number("0." + document.getElementById(ID + "slider").value));
     document.getElementById(ID + "audio").volume = Number(
       "0." + document.getElementById(ID + "slider").value
     );

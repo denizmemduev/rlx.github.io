@@ -4,7 +4,14 @@ body {
   font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  background-image: linear-gradient(
+    to right top,
+    #b9b9b9,
+    #979797,
+    #777777,
+    #585858,
+    #3b3b3b
+  );
   display: flex;
   justify-content: center;
   align-items: center;
