@@ -1,7 +1,12 @@
+@font-face {
+  src: url(../src/fonts/Rajdhani-Regular.ttf);
+  font-family: Rajdhani-Medium;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: monospace;
+  font-family: Rajdhani-Medium;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(
@@ -19,8 +24,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: Rajdhani-Medium;
 }
 
 .MuiSlider-root {

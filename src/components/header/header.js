@@ -19,7 +19,7 @@ export default function Header() {
             beautiful nature landscapes? Increase concentration? <br />
             <br />
             This is the place which you are looking for.
-            <br></br>
+            <br />
             by: Deniz Memduev
           </p>
           <div>
